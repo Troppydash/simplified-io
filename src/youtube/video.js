@@ -2,6 +2,10 @@ function $(selector) {
     return document.querySelector(selector);
 }
 
+document.querySelector('video').pause();
+$("#player.style-scope").parentElement.removeChild($("#player.style-scope"));
+
+
 function waitFor(id, name, callback) {
     let timer = setInterval(function() {
         const ele = document.querySelectorAll(id);
@@ -27,8 +31,8 @@ function createIframe(videoId) {
     return container;
 }
 
+
 waitFor("#info", "style-scope ytd-watch-flexy", function($info) {
-    $("#player.style-scope").parentElement.removeChild($("#player.style-scope"));
 
     // create iframe
     const url = new URL(window.location);
@@ -40,4 +44,7 @@ waitFor("#info", "style-scope ytd-watch-flexy", function($info) {
     box.appendChild(video);
     box.appendChild($info);
     $("#primary-inner").appendChild(box);
+
+    $("body").className = "sio-video";
 });
+
