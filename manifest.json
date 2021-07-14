@@ -1,0 +1,22 @@
+{
+  "name": "Simplified.io",
+  "description": "the quick brown fox jumps over the lazy dog",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "permissions": [],
+  "action": {
+    "default_popup": "src/ui.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.google.com/*", "https://www.google.com/*"],
+      "js": ["src/google/google.js"],
+      "css": ["src/google/google.css"]
+    },
+    {
+      "matches": ["https://www.youtube.com/watch*", "https://www.youtube.com/watch*"],
+      "js": ["src/youtube/video.js"],
+      "css": ["src/youtube/video.css"]
+    }
+  ]
+}
