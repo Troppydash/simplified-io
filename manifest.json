@@ -1,22 +1,37 @@
 {
-  "name": "Simplified.io",
-  "description": "the quick brown fox jumps over the lazy dog",
-  "version": "0.0.1",
-  "manifest_version": 3,
-  "permissions": [],
-  "action": {
-    "default_popup": "src/ui.html"
-  },
-  "content_scripts": [
-    {
-      "matches": ["https://www.google.com/*", "https://www.google.com/*"],
-      "js": ["src/google/google.js"],
-      "css": ["src/google/google.css"]
+    "name": "Simplified.io",
+    "description": "the quick brown fox jumps over the lazy dog",
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "permissions": [],
+    "browser_action": {
+        "default_popup": "src/ui.html"
     },
-    {
-      "matches": ["https://www.youtube.com/watch*", "https://www.youtube.com/watch*"],
-      "js": ["src/youtube/video.js"],
-      "css": ["src/youtube/video.css"]
-    }
-  ]
+    "icons": {
+        "16": "assets/icons/16x16.png",
+        "32": "assets/icons/32x32.png"
+    },
+    "content_scripts": [
+        {
+            "all_frames": true,
+            "css": [
+                "src/youtube/youtube-style.css"
+            ],
+            "exclude_matches": [
+                "https://www.youtube.com/tv*",
+                "https://www.youtube.com/audiolibrary/*",
+                "http://studio.youtube.com/*"
+            ],
+            "js": [
+                "src/youtube/content-script.js"
+            ],
+            "matches": [
+                "https://www.youtube.com/*"
+            ],
+            "run_at": "document_start"
+        }
+    ],
+    "web_accessible_resources": [
+        "src/youtube/youtube-script.js"
+    ]
 }
