@@ -1,4 +1,6 @@
 /// Helpers ///
+const _sioversion = '0.0.1';
+
 function $(selector) {
     return document.querySelector(selector);
 }
@@ -63,41 +65,58 @@ class YoutubeSearchPage extends YoutubePage {
 }
 
 class YoutubeVideoPage extends YoutubePage {
+    constructor() {
+        super();
+
+        this.timer = null;
+    }
+
     inject() {
         // add class
         document.body.classList.add('sio-video');
 
         // move ytd-comments to inside #secondary
         waitFor('ytd-comments#comments', 'style-scope ytd-watch-flexy', () => {
-            console.log("Moving comments")
-            const comments = $('ytd-comments#comments');
-            // remove from parent
-            comments.parentNode.removeChild(comments);
+            waitFor('div#secondary-inner', 'style-scope ytd-watch-flexy', () => {
+                window._stlogger.log("Moving comments");
+                const comments = $('ytd-comments#comments');
+                // remove from parent
+                comments.parentNode.removeChild(comments);
 
-            const columns = $('div#secondary');
-            columns.innerHTML = '';
-            columns.appendChild(comments);
+                const columns = $('div#secondary');
+                columns.innerHTML = '';
+                columns.appendChild(comments);
+
+                waitFor('ytd-comments div#contents', 'style-scope ytd-item-section-renderer', () => {
+                    const comments = $('ytd-comments div#contents');
+                    this.timer = setInterval(() => {
+                        if (comments.children.length > 12) {
+                            // remove spinner
+                            const spinner = $('.ytd-comments div#contents ytd-continuation-item-renderer')
+                            if (spinner) {
+                                spinner.parentNode.removeChild(spinner);
+                            }
+
+                            // for firefox?
+                            const spinner2 = $('.ytd-comments div#continuations');
+                            if (spinner2) {
+                                spinner2.parentNode.removeChild(spinner2);
+                            }
+                        }
+                    }, 100);
+                })
+            })
         })
 
-        waitFor('ytd-comments div#contents', 'style-scope ytd-item-section-renderer', () => {
-            const comments = $('ytd-comments div#contents');
-            const timer = setInterval(() => {
-                if (comments.children.length > 12) {
-
-                    // remove spinner
-                    const spinner = $('.ytd-comments div#contents ytd-continuation-item-renderer')
-                    console.log(spinner)
-                    if (spinner) {
-                        spinner.parentNode.removeChild(spinner);
-                    }
-                }
-            }, 100);
-        })
     }
 
     destroy() {
         // remove class
         document.body.classList.remove('sio-video');
+
+        if (this.timer) {
+            clearInterval(this.timer);
+        }
     }
 }
 
@@ -177,6 +196,7 @@ function handleNewPage(url) {
 // main is the main function that is called when the page is loaded
 function _main() {
     window._stlogger.log("Injected Simplified.IO Youtube Script!!!");
+    window._stlogger.log("Version: " + _sioversion);
 
     // pages state
     let currentPage = null;

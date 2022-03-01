@@ -308,10 +308,7 @@ body.sio-video ytd-watch-flexy div#columns ytd-comments#comments {
   margin: 0 2rem; }
   body.sio-video ytd-watch-flexy div#columns ytd-comments#comments ytd-item-section-renderer#sections > div#header {
     display: none !important; }
-  body.sio-video ytd-watch-flexy div#columns ytd-comments#comments ytd-comment-thread-renderer:nth-child(-n + 12) {
-    display: block !important; }
   body.sio-video ytd-watch-flexy div#columns ytd-comments#comments ytd-comment-thread-renderer {
-    display: none;
     background: #181818;
     box-shadow: 4px 4px 8px #101010, -4px -4px 8px #212121;
     margin-bottom: 2rem;

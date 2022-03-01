@@ -419,13 +419,13 @@ body.sio-video {
             }
 
             // only allow the first 7 ytd-comment-thread-renderer
-            ytd-comment-thread-renderer:nth-child(-n + 12) {
-                display: block !important;
-            }
+            //ytd-comment-thread-renderer:nth-child(-n + 12) {
+            //    display: block !important;
+            //}
 
 
             ytd-comment-thread-renderer {
-                display: none;
+                //display: none;
 
                 @include flat(4px);
                 margin-bottom: 2rem;
