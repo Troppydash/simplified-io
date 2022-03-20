@@ -5,7 +5,7 @@ const BUILD_SETTINGS = {
     indir: ['src', 'assets'],
     outdir: 'build',
     clean: true,
-    extensions: ['.js', '.css', '.png']
+    extensions: ['.js', '.css', '.png', '.html']
 }
 
 async function build(args) {

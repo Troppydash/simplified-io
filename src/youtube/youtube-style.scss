@@ -272,6 +272,22 @@ body.sio-video2 {
     --sio-flat-light: #282828;
 }
 
+// light mode
+@media (prefers-color-scheme: light) {
+    :root {
+        --sio-red: #ff0000;
+        --sio-dark1: #3e3e3e;
+        --sio-dark2: #4d4d4d;
+        --sio-dark3: #5c5c5c;
+        --sio-lightdark1: #cbcbcb;
+        --sio-lightdark2: #ffffff;
+
+        --sio-flat-bg: #f5f5f5;
+        --sio-flat-dark: #e5e5e5;
+        --sio-flat-light: #ffffff;
+    }
+}
+
 @mixin LeftSidebar {
     // remove left sidebar removals
     ytd-guide-renderer > div.ytd-guide-renderer {

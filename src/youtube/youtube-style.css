@@ -156,6 +156,18 @@ body.sio-video2 {
   --sio-flat-dark: #090909;
   --sio-flat-light: #282828; }
 
+@media (prefers-color-scheme: light) {
+  :root {
+    --sio-red: #ff0000;
+    --sio-dark1: #3e3e3e;
+    --sio-dark2: #4d4d4d;
+    --sio-dark3: #5c5c5c;
+    --sio-lightdark1: #cbcbcb;
+    --sio-lightdark2: #ffffff;
+    --sio-flat-bg: #f5f5f5;
+    --sio-flat-dark: #e5e5e5;
+    --sio-flat-light: #ffffff; } }
+
 body.sio-home ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/trending"],
 body.sio-home ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/trending"],
 body.sio-home ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/explore"],
