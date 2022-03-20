@@ -1,0 +1,20 @@
+{
+  "name": "simplified-io",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Troppydash/simplified-io.git"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "Terry Qi <troppydash.developer@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Troppydash/simplified-io/issues"
+  },
+  "homepage": "https://github.com/Troppydash/simplified-io#readme"
+}
