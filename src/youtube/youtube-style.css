@@ -151,7 +151,10 @@ body.sio-video2 {
   --sio-dark2: #4d4d4d;
   --sio-dark3: #5c5c5c;
   --sio-lightdark1: #cbcbcb;
-  --sio-lightdark2: #ffffff; }
+  --sio-lightdark2: #ffffff;
+  --sio-flat-bg: #151515;
+  --sio-flat-dark: #090909;
+  --sio-flat-light: #282828; }
 
 body.sio-home ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/trending"],
 body.sio-home ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/trending"],
@@ -176,8 +179,11 @@ body.sio-home ytd-mini-guide-renderer > div.ytd-mini-guide-renderer ytd-mini-gui
   display: none !important; }
 
 body.sio-home div#masthead-container {
-  background: #181818;
-  box-shadow: 4px 4px 8px #101010, -4px -4px 8px #212121; }
+  background: var(--sio-flat-bg);
+  box-shadow: 4px 4px 8px var(--sio-flat-dark), -4px -4px 8px var(--sio-flat-light); }
+
+body.sio-home ytd-masthead#masthead #buttons {
+  display: none !important; }
 
 body.sio-home ytd-rich-grid-renderer div.ytd-rich-grid-renderer#header {
   display: none !important; }
@@ -198,14 +204,14 @@ body.sio-home ytd-rich-grid-renderer ytd-rich-item-renderer {
   padding: 1rem; }
 
 body.sio-home ytd-rich-grid-renderer ytd-rich-item-renderer > div#content {
-  background: #181818;
-  box-shadow: 6px 6px 12px #101010, -6px -6px 12px #212121;
+  background: var(--sio-flat-bg);
+  box-shadow: 6px 6px 12px var(--sio-flat-dark), -6px -6px 12px var(--sio-flat-light);
   padding: 2rem;
   border-radius: 2rem; }
 
 body.sio-home ytd-rich-grid-renderer ytd-playlist-renderer, body.sio-home ytd-rich-grid-renderer ytd-video-renderer {
-  background: #181818;
-  box-shadow: 6px 6px 12px #101010, -6px -6px 12px #212121;
+  background: var(--sio-flat-bg);
+  box-shadow: 6px 6px 12px var(--sio-flat-dark), -6px -6px 12px var(--sio-flat-light);
   padding: 2rem 2rem !important;
   margin-top: 2rem;
   margin-bottom: 4rem;
@@ -213,6 +219,17 @@ body.sio-home ytd-rich-grid-renderer ytd-playlist-renderer, body.sio-home ytd-ri
 
 body.sio-home ytd-rich-grid-renderer div#preview.ytd-rich-grid-renderer {
   display: none !important; }
+
+body.sio-home ytd-app {
+  max-height: 100vh;
+  overflow-y: hidden; }
+
+body.sio-home ytd-rich-grid-row:nth-child(-n + 2) {
+  opacity: 1;
+  pointer-events: all; }
+
+body.sio-home ytd-rich-grid-row {
+  opacity: 0; }
 
 body.sio-search ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/trending"],
 body.sio-search ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/trending"],
@@ -237,8 +254,11 @@ body.sio-search ytd-mini-guide-renderer > div.ytd-mini-guide-renderer ytd-mini-g
   display: none !important; }
 
 body.sio-search div#masthead-container {
-  background: #181818;
-  box-shadow: 4px 4px 8px #101010, -4px -4px 8px #212121; }
+  background: var(--sio-flat-bg);
+  box-shadow: 4px 4px 8px var(--sio-flat-dark), -4px -4px 8px var(--sio-flat-light); }
+
+body.sio-search ytd-masthead#masthead #buttons {
+  display: none !important; }
 
 body.sio-search ytd-section-list-renderer div.ytd-rich-grid-renderer#header {
   display: none !important; }
@@ -259,14 +279,14 @@ body.sio-search ytd-section-list-renderer ytd-rich-item-renderer {
   padding: 1rem; }
 
 body.sio-search ytd-section-list-renderer ytd-rich-item-renderer > div#content {
-  background: #181818;
-  box-shadow: 6px 6px 12px #101010, -6px -6px 12px #212121;
+  background: var(--sio-flat-bg);
+  box-shadow: 6px 6px 12px var(--sio-flat-dark), -6px -6px 12px var(--sio-flat-light);
   padding: 2rem;
   border-radius: 2rem; }
 
 body.sio-search ytd-section-list-renderer ytd-playlist-renderer, body.sio-search ytd-section-list-renderer ytd-video-renderer {
-  background: #181818;
-  box-shadow: 6px 6px 12px #101010, -6px -6px 12px #212121;
+  background: var(--sio-flat-bg);
+  box-shadow: 6px 6px 12px var(--sio-flat-dark), -6px -6px 12px var(--sio-flat-light);
   padding: 2rem 2rem !important;
   margin-top: 2rem;
   margin-bottom: 4rem;
@@ -298,8 +318,15 @@ body.sio-video ytd-mini-guide-renderer > div.ytd-mini-guide-renderer ytd-mini-gu
   display: none !important; }
 
 body.sio-video div#masthead-container {
-  background: #181818;
-  box-shadow: 4px 4px 8px #101010, -4px -4px 8px #212121; }
+  background: var(--sio-flat-bg);
+  box-shadow: 4px 4px 8px var(--sio-flat-dark), -4px -4px 8px var(--sio-flat-light); }
+
+body.sio-video ytd-masthead#masthead #buttons {
+  display: none !important; }
+
+body.sio-video ytd-app {
+  max-height: 140vh;
+  overflow-y: hidden; }
 
 body.sio-video ytd-watch-flexy div#columns div#secondary #secondary-inner {
   display: none !important; }
@@ -308,9 +335,14 @@ body.sio-video ytd-watch-flexy div#columns ytd-comments#comments {
   margin: 0 2rem; }
   body.sio-video ytd-watch-flexy div#columns ytd-comments#comments ytd-item-section-renderer#sections > div#header {
     display: none !important; }
+  body.sio-video ytd-watch-flexy div#columns ytd-comments#comments ytd-comment-thread-renderer:nth-child(-n + 5) {
+    opacity: 1;
+    pointer-events: all; }
   body.sio-video ytd-watch-flexy div#columns ytd-comments#comments ytd-comment-thread-renderer {
-    background: #181818;
-    box-shadow: 4px 4px 8px #101010, -4px -4px 8px #212121;
+    opacity: 0;
+    pointer-events: none;
+    background: var(--sio-flat-bg);
+    box-shadow: 4px 4px 8px var(--sio-flat-dark), -4px -4px 8px var(--sio-flat-light);
     margin-bottom: 2rem;
     padding: 1rem;
     border-radius: 1rem; }
@@ -342,21 +374,41 @@ body.sio-video ytd-watch-flexy div#columns div#primary div#info ytd-video-primar
 
 body.sio-video ytd-watch-flexy div#columns div#primary div#meta {
   padding: 0rem 1rem;
-  display: inline-block;
   margin: 4rem 0 2rem;
   border-radius: 0.5rem;
-  background: #181818;
-  box-shadow: 3px 3px 6px #101010, -3px -3px 6px #212121;
-  min-width: 40%; }
-  body.sio-video ytd-watch-flexy div#columns div#primary div#meta div#top-row.ytd-video-secondary-info-renderer ytd-video-owner-renderer > a {
-    display: none !important; }
-  body.sio-video ytd-watch-flexy div#columns div#primary div#meta div#top-row.ytd-video-secondary-info-renderer div#subscribe-button {
-    display: none !important; }
-  body.sio-video ytd-watch-flexy div#columns div#primary div#meta div#top-row.ytd-video-secondary-info-renderer div#purchase-button {
-    display: none !important; }
-  body.sio-video ytd-watch-flexy div#columns div#primary div#meta div#top-row.ytd-video-secondary-info-renderer div#sponsor-button {
-    display: none !important; }
+  min-width: 40%;
+  background: var(--sio-flat-bg);
+  box-shadow: 4px 4px 8px var(--sio-flat-dark), -4px -4px 8px var(--sio-flat-light); }
+  body.sio-video ytd-watch-flexy div#columns div#primary div#meta ytd-expander div#content {
+    max-height: 20vh;
+    overflow-y: auto; }
+  body.sio-video ytd-watch-flexy div#columns div#primary div#meta ytd-expander div#content::-webkit-scrollbar {
+    width: 16px; }
+  body.sio-video ytd-watch-flexy div#columns div#primary div#meta ytd-expander div#content::-webkit-scrollbar-thumb {
+    height: 56px;
+    border-radius: 8px;
+    border: 4px solid transparent;
+    background-color: var(--yt-spec-text-secondary);
+    background-clip: content-box; }
+  body.sio-video ytd-watch-flexy div#columns div#primary div#meta div#meta-contents ytd-video-secondary-info-renderer {
+    border: none !important; }
+  body.sio-video ytd-watch-flexy div#columns div#primary div#meta div#top-row.ytd-video-secondary-info-renderer {
+    border: none !important; }
+    body.sio-video ytd-watch-flexy div#columns div#primary div#meta div#top-row.ytd-video-secondary-info-renderer ytd-video-owner-renderer > a {
+      display: none !important; }
+    body.sio-video ytd-watch-flexy div#columns div#primary div#meta div#top-row.ytd-video-secondary-info-renderer div#subscribe-button {
+      display: none !important; }
+    body.sio-video ytd-watch-flexy div#columns div#primary div#meta div#top-row.ytd-video-secondary-info-renderer div#purchase-button {
+      display: none !important; }
+    body.sio-video ytd-watch-flexy div#columns div#primary div#meta div#top-row.ytd-video-secondary-info-renderer div#sponsor-button {
+      display: none !important; }
   body.sio-video ytd-watch-flexy div#columns div#primary div#meta div#container > ytd-expander {
     margin-left: 0; }
   body.sio-video ytd-watch-flexy div#columns div#primary div#meta ytd-metadata-row-container-renderer {
     display: none !important; }
+
+body.sio-video ytd-watch-flexy div#columns div#primary ytd-merch-shelf-renderer {
+  display: none !important; }
+
+body.sio-video ytd-watch-flexy div#columns div#primary div#related {
+  display: none !important; }

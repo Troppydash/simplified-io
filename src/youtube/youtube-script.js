@@ -78,33 +78,45 @@ class YoutubeVideoPage extends YoutubePage {
         // move ytd-comments to inside #secondary
         waitFor('ytd-comments#comments', 'style-scope ytd-watch-flexy', () => {
             waitFor('div#secondary-inner', 'style-scope ytd-watch-flexy', () => {
+                // find why comments do not show up correct when navigating from another video
                 window._stlogger.log("Moving comments");
                 const comments = $('ytd-comments#comments');
                 // remove from parent
                 comments.parentNode.removeChild(comments);
 
-                const columns = $('div#secondary');
-                columns.innerHTML = '';
+                const columns = $('div#columns > div#secondary');
+                while (columns.firstChild) {
+                    columns.removeChild(columns.firstChild);
+                }
                 columns.appendChild(comments);
 
-                waitFor('ytd-comments div#contents', 'style-scope ytd-item-section-renderer', () => {
-                    const comments = $('ytd-comments div#contents');
-                    this.timer = setInterval(() => {
-                        if (comments.children.length > 12) {
-                            // remove spinner
-                            const spinner = $('.ytd-comments div#contents ytd-continuation-item-renderer')
-                            if (spinner) {
-                                spinner.parentNode.removeChild(spinner);
-                            }
 
-                            // for firefox?
-                            const spinner2 = $('.ytd-comments div#continuations');
-                            if (spinner2) {
-                                spinner2.parentNode.removeChild(spinner2);
-                            }
-                        }
-                    }, 100);
-                })
+                // fix this 12 comment thing
+                // waitFor('ytd-comments div#contents', 'style-scope ytd-item-section-renderer', () => {
+                //     const comments = $('ytd-comments div#contents');
+                //     this.timer = setInterval(() => {
+                //         if (comments.children.length >= 7) {
+                //             console.log('cleared');
+                //             // remove spinner
+                //             const spinner = $('.ytd-comments div#contents ytd-continuation-item-renderer')
+                //             if (spinner) {
+                //                 spinner.parentNode.removeChild(spinner);
+                //             }
+                //
+                //             // for firefox?
+                //             const spinner2 = $('.ytd-comments div#continuations');
+                //             if (spinner2) {
+                //                 spinner2.parentNode.removeChild(spinner2);
+                //             }
+                //
+                //
+                //             // reduce the number of children to 7
+                //             while (comments.children.length > 7) {
+                //                 comments.removeChild(comments.lastChild);
+                //             }
+                //         }
+                //     }, 100);
+                // })
             })
         })
 
@@ -116,6 +128,7 @@ class YoutubeVideoPage extends YoutubePage {
 
         if (this.timer) {
             clearInterval(this.timer);
+            this.timer = null;
         }
     }
 }

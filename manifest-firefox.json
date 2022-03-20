@@ -8,8 +8,12 @@
         "default_popup": "src/ui.html"
     },
     "icons": {
-        "16": "assets/icons/16x16.png",
-        "32": "assets/icons/32x32.png"
+        "16": "assets/logos/16.png",
+        "32": "assets/logos/32.png",
+        "64": "assets/logos/64.png",
+        "128": "assets/logos/128.png",
+        "256": "assets/logos/256.png",
+        "512": "assets/logos/512.png"
     },
     "content_scripts": [
         {

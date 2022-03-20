@@ -253,9 +253,9 @@ body.sio-video2 {
 // neumorphic
 @mixin flat($distance) {
     $distance-inverted: $distance * -1;
-    background: #181818;
-    box-shadow: $distance $distance ($distance * 2) #101010,
-    $distance-inverted $distance-inverted ($distance * 2) #212121;
+    background: var(--sio-flat-bg);
+    box-shadow: $distance $distance ($distance * 2) var(--sio-flat-dark),
+    $distance-inverted $distance-inverted ($distance * 2) var(--sio-flat-light);
 }
 
 
@@ -266,6 +266,10 @@ body.sio-video2 {
     --sio-dark3: #5c5c5c;
     --sio-lightdark1: #cbcbcb;
     --sio-lightdark2: #ffffff;
+
+    --sio-flat-bg: #151515;
+    --sio-flat-dark: #090909;
+    --sio-flat-light: #282828;
 }
 
 @mixin LeftSidebar {
@@ -369,8 +373,14 @@ body.sio-video2 {
 }
 
 @mixin Header {
+    // add flat style to header
     div#masthead-container {
         @include flat(4px);
+    }
+
+    // remove sign in, settings, and apps buttons
+    ytd-masthead#masthead #buttons {
+        display: none !important;
     }
 }
 
@@ -382,6 +392,21 @@ body.sio-home {
     // main content
     ytd-rich-grid-renderer {
         @include Videos;
+    }
+
+    ytd-app {
+        max-height: 100vh;
+        overflow-y: hidden;
+    }
+
+    // limit recommended to only 2 rows
+    ytd-rich-grid-row:nth-child(-n + 2)  {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    ytd-rich-grid-row {
+        opacity: 0;
     }
 }
 
@@ -398,6 +423,11 @@ body.sio-video {
     @include LeftSidebar;
     @include Header;
 
+
+    ytd-app {
+        max-height: 140vh;
+        overflow-y: hidden;
+    }
 
     // main content
     ytd-watch-flexy div#columns {
@@ -418,14 +448,16 @@ body.sio-video {
                 display: none !important;
             }
 
-            // only allow the first 7 ytd-comment-thread-renderer
-            //ytd-comment-thread-renderer:nth-child(-n + 12) {
-            //    display: block !important;
-            //}
+            // only allow the first 5 ytd-comment-thread-renderer
+            ytd-comment-thread-renderer:nth-child(-n + 5) {
+                opacity: 1;
+                pointer-events: all;
+            }
 
 
             ytd-comment-thread-renderer {
-                //display: none;
+                opacity: 0;
+                pointer-events: none;
 
                 @include flat(4px);
                 margin-bottom: 2rem;
@@ -494,16 +526,46 @@ body.sio-video {
             // author
             div#meta {
                 padding: 0rem 1rem;
-                display: inline-block;
+                //display: inline-block;
                 margin: 4rem 0 2rem;
                 border-radius: 0.5rem;
-
-                @include flat(3px);
-
                 min-width: 40%;
+
+                @include flat(4px);
+
+                ytd-expander div#content {
+                    max-height: 20vh;
+                    overflow-y: auto;
+                }
+
+                ytd-expander div#content::-webkit-scrollbar {
+                    width: 16px;
+                }
+
+                ytd-expander div#content::-webkit-scrollbar-thumb {
+                    height: 56px;
+                    border-radius: 8px;
+                    border: 4px solid transparent;
+                    background-color: var(--yt-spec-text-secondary);
+                    background-clip: content-box;
+                }
+
+                // use the same scrollbar
+
+
+
+
+                div#meta-contents ytd-video-secondary-info-renderer {
+                    border: none !important;
+                }
+
+
+
 
                 // remove avatar
                 div#top-row.ytd-video-secondary-info-renderer {
+                    border: none !important;
+
                     ytd-video-owner-renderer > a {
                         display: none !important;
                     }
@@ -534,8 +596,16 @@ body.sio-video {
                     display: none !important;
                 }
             }
-        }
 
+            // remove merch
+            ytd-merch-shelf-renderer {
+                display: none !important;
+            }
+
+            div#related {
+                display: none !important;
+            }
+        }
     }
 }
 
