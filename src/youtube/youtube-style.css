@@ -243,6 +243,9 @@ body.sio-home ytd-rich-grid-row:nth-child(-n + 2) {
 body.sio-home ytd-rich-grid-row {
   opacity: 0; }
 
+body.sio-home ytd-rich-section-renderer {
+  display: none !important; }
+
 body.sio-search ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/trending"],
 body.sio-search ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/trending"],
 body.sio-search ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/explore"],
@@ -424,3 +427,76 @@ body.sio-video ytd-watch-flexy div#columns div#primary ytd-merch-shelf-renderer 
 
 body.sio-video ytd-watch-flexy div#columns div#primary div#related {
   display: none !important; }
+
+body.sio-channel ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/trending"],
+body.sio-channel ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/trending"],
+body.sio-channel ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/explore"],
+body.sio-channel ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/subscriptions"],
+body.sio-channel ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[title="Shorts"] {
+  display: none !important; }
+
+body.sio-channel ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-signin-promo-renderer {
+  display: none !important; }
+
+body.sio-channel ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-section-renderer:not(:first-child) {
+  display: none !important; }
+
+body.sio-channel ytd-guide-renderer#guide-renderer {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  height: 100%; }
+
+body.sio-channel ytd-mini-guide-renderer > div.ytd-mini-guide-renderer ytd-mini-guide-entry-renderer:not([aria-label="Home"]) {
+  display: none !important; }
+
+body.sio-channel div#masthead-container {
+  background: var(--sio-flat-bg);
+  box-shadow: 4px 4px 8px var(--sio-flat-dark), -4px -4px 8px var(--sio-flat-light); }
+
+body.sio-channel ytd-masthead#masthead #buttons {
+  display: none !important; }
+
+body.sio-channel ytd-app {
+  max-height: 100vh;
+  overflow-y: hidden; }
+
+body.sio-channel tp-yt-app-header-layout .banner-visible-area {
+  display: none !important; }
+
+body.sio-channel tp-yt-app-header-layout div#background {
+  filter: grayscale(70%); }
+
+body.sio-channel tp-yt-app-header-layout tp-yt-app-toolbar {
+  display: none !important; }
+
+body.sio-channel tp-yt-app-header-layout #channel-header-container > yt-img-shadow {
+  display: none !important; }
+
+body.sio-channel tp-yt-app-header-layout #subscribe-button {
+  display: none !important; }
+
+body.sio-channel tp-yt-app-header-layout #channel-header {
+  padding-bottom: 16px; }
+
+body.sio-channel tp-yt-app-header-layout #sponsor-button {
+  display: none !important; }
+
+body.sio-channel div#contents ytd-grid-renderer ytd-grid-video-renderer div#dismissible ytd-thumbnail > a.ytd-thumbnail div#overlays, body.sio-channel div#contents ytd-grid-renderer ytd-grid-video-renderer div#dismissible ytd-thumbnail > a.ytd-thumbnail div#mouseover-overlay, body.sio-channel div#contents ytd-grid-renderer ytd-grid-video-renderer div#dismissible ytd-thumbnail > a.ytd-thumbnail div#hover-overlays {
+  display: none !important; }
+
+body.sio-channel div#contents ytd-grid-renderer ytd-grid-video-renderer div#dismissible ytd-thumbnail {
+  filter: grayscale(70%); }
+
+body.sio-channel div#contents ytd-grid-renderer ytd-grid-video-renderer div#dismissible div#details > a#avatar-link {
+  display: none !important; }
+
+body.sio-channel div#contents ytd-grid-renderer ytd-grid-video-renderer div#dismissible div#channel-info > a {
+  display: none !important; }
+
+body.sio-channel div#contents ytd-grid-renderer ytd-grid-video-renderer:nth-child(-n + 10) {
+  opacity: 1;
+  pointer-events: all; }
+
+body.sio-channel div#contents ytd-grid-renderer ytd-grid-video-renderer {
+  opacity: 0; }

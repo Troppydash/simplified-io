@@ -14,7 +14,7 @@ function waitFor(id, name, callback) {
                 clearInterval(timer);
             }
         }
-    }, 100);
+    }, 50);
 }
 
 function setTimeoutUntil(callback, condition) {
@@ -23,8 +23,13 @@ function setTimeoutUntil(callback, condition) {
             callback();
             clearInterval(timer);
         }
-    }, 100);
+    }, 50);
     return timer;
+}
+
+// TODO: use the animation frame to make this more efficient
+function setIntervalAnimation(callback, condition) {
+
 }
 
 
@@ -91,32 +96,8 @@ class YoutubeVideoPage extends YoutubePage {
                 columns.appendChild(comments);
 
 
-                // fix this 12 comment thing
-                // waitFor('ytd-comments div#contents', 'style-scope ytd-item-section-renderer', () => {
-                //     const comments = $('ytd-comments div#contents');
-                //     this.timer = setInterval(() => {
-                //         if (comments.children.length >= 7) {
-                //             console.log('cleared');
-                //             // remove spinner
-                //             const spinner = $('.ytd-comments div#contents ytd-continuation-item-renderer')
-                //             if (spinner) {
-                //                 spinner.parentNode.removeChild(spinner);
-                //             }
-                //
-                //             // for firefox?
-                //             const spinner2 = $('.ytd-comments div#continuations');
-                //             if (spinner2) {
-                //                 spinner2.parentNode.removeChild(spinner2);
-                //             }
-                //
-                //
-                //             // reduce the number of children to 7
-                //             while (comments.children.length > 7) {
-                //                 comments.removeChild(comments.lastChild);
-                //             }
-                //         }
-                //     }, 100);
-                // })
+                // TODO: not removing recommended, but allow playlists
+
             })
         })
 
@@ -131,6 +112,50 @@ class YoutubeVideoPage extends YoutubePage {
             this.timer = null;
         }
     }
+}
+
+class YoutubeChannelVideosPage extends YoutubePage {
+    inject() {
+        // add class
+        document.body.classList.add('sio-channel');
+
+        // resize a bit
+        setTimeoutUntil(() => {
+            window.dispatchEvent(new Event('resize'));
+        }, () => {
+            return $('ytd-grid-video-renderer') !== null;
+        });
+
+        // this is backup
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+        }, 1000);
+    }
+
+    destroy() {
+        // remove class
+        document.body.classList.remove('sio-channel');
+    }
+}
+
+class YoutubeChannelPage extends YoutubePage {
+    inject() {
+        // redirect to /c
+        // window.location.href = window.location.href.replace('/channel', '/c');
+        waitFor('#form', 'style-scope ytd-expandable-tab-renderer', () => {
+            const href = document.querySelector('form#form').action;
+
+            // remove /search from href
+            window.location.href = href.replace('/search', '/videos');
+        });
+    }
+
+    destroy() {
+    }
+}
+
+class YoutubePlaylistPage extends YoutubePage {
+
 }
 
 
@@ -184,6 +209,26 @@ function handleNewPage(url) {
         window._stlogger.log('Matched Search page');
 
         page = new YoutubeSearchPage();
+    } else if (url.match(/^playlist?.*/)) {
+        // channel page
+        window._stlogger.log('Matched Playlist page');
+
+        page = new YoutubePlaylistPage();
+    } else if (url.match(/^c\/.*\/videos/)) {
+        // channel page
+        window._stlogger.log('Matched Channel Vidoes page');
+
+        page = new YoutubeChannelVideosPage();
+    } else if (url.match(/^c\/.*/)) {
+        // channel page
+        window._stlogger.log('Matched Channel page');
+
+        page = new YoutubeChannelPage();
+    } else if (url.match(/^channel\/.*/)) {
+        // channel page
+        window._stlogger.log('Matched Channel page');
+
+        page = new YoutubeChannelPage();
     } else if (url === '') {
         // home page
         window._stlogger.log('Matched Home page');
@@ -248,7 +293,7 @@ function _main() {
             lastUrl = window.location.href;
             bufferPage(handleNewPage(lastUrl));
         }
-    }, 100);
+    }, 50);
 
     // remove the interval when the page is closed
     window.addEventListener('unload', () => {

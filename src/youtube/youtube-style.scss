@@ -328,6 +328,29 @@ body.sio-video2 {
     }
 }
 
+@mixin VideoThumbnails {
+    // remove hover overlay
+    ytd-thumbnail > a.ytd-thumbnail {
+        div#overlays, div#mouseover-overlay, div#hover-overlays {
+            display: none !important;
+        }
+    }
+
+    // desaturate thumbnails
+    ytd-thumbnail {
+        filter: grayscale(70%);
+    }
+
+    // remove avatar
+    div#details > a#avatar-link {
+        display: none !important;
+    }
+
+    div#channel-info > a {
+        display: none !important;
+    }
+}
+
 @mixin Videos {
 
     // remove header tags
@@ -337,27 +360,7 @@ body.sio-video2 {
 
     // each video
     ytd-rich-item-renderer, ytd-video-renderer {
-        // remove hover overlay
-        ytd-thumbnail > a.ytd-thumbnail {
-            div#overlays, div#mouseover-overlay, div#hover-overlays {
-                display: none !important;
-            }
-        }
-
-        // desaturate thumbnails
-        ytd-thumbnail {
-            filter: grayscale(70%);
-        }
-
-        // remove avatar
-        div#details > a#avatar-link {
-            display: none !important;
-        }
-
-        div#channel-info > a {
-            display: none !important;
-        }
-
+        @include VideoThumbnails;
     }
 
     // cool flat style, home page
@@ -423,6 +426,10 @@ body.sio-home {
 
     ytd-rich-grid-row {
         opacity: 0;
+    }
+
+    ytd-rich-section-renderer {
+        display: none !important;
     }
 }
 
@@ -625,5 +632,67 @@ body.sio-video {
     }
 }
 
+body.sio-channel {
+    @include LeftSidebar;
+    @include Header;
 
+    ytd-app {
+        max-height: 100vh;
+        overflow-y: hidden;
+    }
+
+    tp-yt-app-header-layout {
+
+        .banner-visible-area {
+            display: none !important;
+        }
+
+        // desaturate
+        div#background {
+            filter: grayscale(70%);
+        }
+
+        // remove homebar
+        tp-yt-app-toolbar {
+            display: none !important;
+        }
+
+        // remove avatar
+        #channel-header-container > yt-img-shadow {
+            display: none !important;
+        }
+
+        #subscribe-button {
+            display: none !important;
+        }
+
+        #channel-header {
+            padding-bottom: 16px;
+        }
+
+        #sponsor-button {
+                    display: none !important;
+        }
+    }
+
+    div#contents {
+        // limit recommended to only 2 rows
+        ytd-grid-renderer {
+
+            ytd-grid-video-renderer div#dismissible {
+                @include VideoThumbnails;
+
+            }
+
+            ytd-grid-video-renderer:nth-child(-n + 10)  {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            ytd-grid-video-renderer {
+                opacity: 0;
+            }
+        }
+    }
+}
 

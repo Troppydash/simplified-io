@@ -4,7 +4,7 @@ import fse from 'fs-extra';
 const BUILD_SETTINGS = {
     indir: ['src', 'assets'],
     outdir: 'build',
-    clean: true,
+    clean: false,
     extensions: ['.js', '.css', '.png', '.html']
 }
 
@@ -21,9 +21,13 @@ async function build(args) {
         fs.mkdirSync(BUILD_SETTINGS.outdir);
     } else {
         if (BUILD_SETTINGS.clean) {
-            // delete existing build folder
-            fs.rmSync(BUILD_SETTINGS.outdir, { recursive: true, force: true });
-            fs.mkdirSync(BUILD_SETTINGS.outdir);
+            // delete existing build folder, remove all files
+            fs.readdirSync(BUILD_SETTINGS.outdir).forEach(file => {
+                fs.unlinkSync(BUILD_SETTINGS.outdir + '/' + file);
+            });
+            // fs.rmdirSync(BUILD_SETTINGS.outdir);
+
+            // fs.mkdirSync(BUILD_SETTINGS.outdir);
         }
     }
 
