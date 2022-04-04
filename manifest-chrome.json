@@ -3,7 +3,9 @@
     "description": "the quick brown fox jumps over the lazy dog",
     "version": "0.0.1",
     "manifest_version": 2,
-    "permissions": [],
+    "permissions": [
+        "storage"
+    ],
     "browser_action": {
         "default_popup": "src/ui.html"
     },

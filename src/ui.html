@@ -3,32 +3,60 @@
 <head>
     <meta charset="UTF-8">
 
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/stimetable.css">
     <style>
+        html {
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
+            margin: 0;
             padding: 1rem;
             width: 300px;
         }
 
-        /* dark mode */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #252525;
-                color: #fff;
-            }
-        }
+        /*!* dark mode *!*/
+        /*@media (prefers-color-scheme: dark) {*/
+        /*    html {*/
+        /*        background-color: #252525;*/
+        /*        color: #fff;*/
+        /*    }*/
+        /*}*/
     </style>
 </head>
-<body>
+<body class="st-dark">
 
-<h2 style="margin-top: 0">Simplified.IO</h2>
+<h2 style="margin-top: 0" class="st-text st-text--big">Simplified.IO</h2>
 
-<p>Thank you for using Simplified.IO</p>
+<!--<p class="st-text" id="txt-success">Focus Successes: 0</p>-->
 
-<code>
+<!--<br/>-->
+<!--<div >-->
+<!--    <div id="section-input">-->
+<!--        <span class="st-text">Duration (Minutes)</span>-->
+<!--        <br/>-->
+<!--        <input value="5" type="number" min="1" class="st-input st-input&#45;&#45;small" id="input-focus"/>-->
+<!--    </div>-->
+<!--    <div id="section-timer">-->
+<!--        <span class="st-text" id="txt-timer">00:00</span>-->
+<!--    </div>-->
+
+<!--    <button class="st-button st-button&#45;&#45;small" id="btn-focus">Start Focusing</button>-->
+<!--</div>-->
+
+
+<!--<br/>-->
+<p class="st-text">Thank you for using Simplified.IO</p>
+<br/>
+<code style="color: white">
     Written by Terry Qi<br/>
     Designed by Brian Zhang
 </code>
 
+<script src="ui.js"></script>
 </body>
 </html>
