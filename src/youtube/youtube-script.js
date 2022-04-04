@@ -35,23 +35,47 @@ function setIntervalAnimation(callback, condition) {
 
 class YoutubePage {
     constructor() {
+        this.app = null;
     }
 
-    destroy() {
+    hideAll() {
+        if (this.app) {
+            this.app.style.opacity = '0';
+        }
+    }
+
+    showAll() {
+        if (this.app) {
+            this.app.style.opacity = '1';
+        }
     }
 
     inject() {
+        this.app =  document.querySelector('ytd-app');
+
+        // replace all video links of /c/<channel> with /c/<channel>/videos
+        const links = document.querySelectorAll('a[href^="/c/"]');
+        for (let i = 0; i < links.length; i++) {
+            links[i].href += "/videos";
+        }
+    }
+
+    destroy() {
     }
 }
 
 
 class YoutubeHomePage extends YoutubePage {
     inject() {
+        super.inject();
         // add class
+        this.hideAll();
         document.body.classList.add('sio-home');
+        this.showAll();
     }
 
     destroy() {
+        super.destroy();
         // remove class
         document.body.classList.remove('sio-home');
     }
@@ -59,11 +83,16 @@ class YoutubeHomePage extends YoutubePage {
 
 class YoutubeSearchPage extends YoutubePage {
     inject() {
+        super.inject();
         // add class
+        this.hideAll();
         document.body.classList.add('sio-search');
+        this.showAll();
     }
 
     destroy() {
+        super.destroy();
+
         // remove class
         document.body.classList.remove('sio-search');
     }
@@ -77,8 +106,13 @@ class YoutubeVideoPage extends YoutubePage {
     }
 
     inject() {
+        super.inject();
+
+        this.hideAll();
+
         // add class
         document.body.classList.add('sio-video');
+        this.showAll();
 
         // move ytd-comments to inside #secondary
         waitFor('ytd-comments#comments', 'style-scope ytd-watch-flexy', () => {
@@ -104,6 +138,8 @@ class YoutubeVideoPage extends YoutubePage {
     }
 
     destroy() {
+        super.destroy();
+
         // remove class
         document.body.classList.remove('sio-video');
 
@@ -116,9 +152,13 @@ class YoutubeVideoPage extends YoutubePage {
 
 class YoutubeChannelVideosPage extends YoutubePage {
     inject() {
+        super.inject();
+
+        this.hideAll();
         // add class
         document.body.classList.add('sio-channel');
 
+        this.showAll();
         // resize a bit
         setTimeoutUntil(() => {
             window.dispatchEvent(new Event('resize'));
@@ -133,6 +173,8 @@ class YoutubeChannelVideosPage extends YoutubePage {
     }
 
     destroy() {
+        super.destroy();
+
         // remove class
         document.body.classList.remove('sio-channel');
     }
@@ -140,17 +182,31 @@ class YoutubeChannelVideosPage extends YoutubePage {
 
 class YoutubeChannelPage extends YoutubePage {
     inject() {
+        super.inject();
+
         // redirect to /c
         // window.location.href = window.location.href.replace('/channel', '/c');
-        waitFor('#form', 'style-scope ytd-expandable-tab-renderer', () => {
+        this.hideAll();
+
+        setTimeoutUntil( () => {
             const href = document.querySelector('form#form').action;
 
             // remove /search from href
+            // remove history
+            window.history.replaceState(null, null, href.replace('/search', '/videos'));
             window.location.href = href.replace('/search', '/videos');
+        }, () => {
+            const href = document.querySelector('form#form');
+            if (href == null) {
+                return false;
+            }
+            return href.action.indexOf('/search') !== -1;
         });
     }
 
     destroy() {
+        super.destroy();
+
     }
 }
 
@@ -199,7 +255,12 @@ function handleNewPage(url) {
         window._stlogger.log('Matched Video page');
 
         // regex match ?v=id
-        const videoId = url.match(/^watch\?v=([^&]+)/)[1];
+        let videoId;
+        try {
+            videoId = url.match(/^watch\?v=([^&]+)/)[1];
+        } catch (e) {
+            return null;
+        }
 
         page = new YoutubeVideoPage({
             videoId: videoId
@@ -214,17 +275,12 @@ function handleNewPage(url) {
         window._stlogger.log('Matched Playlist page');
 
         page = new YoutubePlaylistPage();
-    } else if (url.match(/^c\/.*\/videos/)) {
+    } else if (url.match(/^(c|channel|user)\/.*\/videos/)) {
         // channel page
-        window._stlogger.log('Matched Channel Vidoes page');
+        window._stlogger.log('Matched Channel Videos page');
 
         page = new YoutubeChannelVideosPage();
-    } else if (url.match(/^c\/.*/)) {
-        // channel page
-        window._stlogger.log('Matched Channel page');
-
-        page = new YoutubeChannelPage();
-    } else if (url.match(/^channel\/.*/)) {
+    } else if (url.match(/^(c|channel|user)\/.*/)) {
         // channel page
         window._stlogger.log('Matched Channel page');
 
@@ -243,9 +299,8 @@ function handleNewPage(url) {
         }
         // reload to home page, force reload
         // remove body
-        document.body.innerHTML = '';
-        window.location.replace('https://www.youtube.com/');
-
+        // document.body.innerHTML = '';
+        // window.location.replace('https://www.youtube.com/');
     }
 
     return page;
@@ -259,25 +314,30 @@ function _main() {
     // pages state
     let currentPage = null;
     let timeout = null;
-    const updatePage = (page) => {
+    const updatePage = (page, last) => {
         if (currentPage) {
             currentPage.destroy();
         }
 
-        currentPage = page;
-
         if (page == null) {
+            // navigate to home page
+            alert(last)
+            window._stlogger.log("Navigating to last url: " + last);
+            window.location.href = last;
             return;
         }
+        currentPage = page;
+
         currentPage.inject();
     }
-    const bufferPage = (page) => {
+
+    const bufferPage = (page, last) => {
         // TODO: maybe refresh the page too?
         if (timeout) {
             clearTimeout(timeout);
         }
 
-        timeout = setTimeoutUntil(() => updatePage(page), () => {
+        timeout = setTimeoutUntil(() => updatePage(page, last), () => {
             const progress = document.querySelector('yt-page-navigation-progress');
             // check if aria-valuemax = 100
             return progress.getAttribute('aria-valuenow') === '100';
@@ -285,13 +345,15 @@ function _main() {
     }
 
     // urls state
+
     let lastUrl = window.location.href;
-    updatePage(handleNewPage(lastUrl));
+    updatePage(handleNewPage(lastUrl), 'https://www.youtube.com/');
     const update = setInterval(() => {
         // check if the url changed
         if (lastUrl !== window.location.href) {
+            const prev = lastUrl;
             lastUrl = window.location.href;
-            bufferPage(handleNewPage(lastUrl));
+            bufferPage(handleNewPage(lastUrl), prev);
         }
     }, 50);
 
@@ -302,11 +364,6 @@ function _main() {
 
 }
 
-// function vec_limit(x, y, c = 1) {
-//     if (x * x + y * y > c) {
-//         return vec_scale(x, y, c)
-//     }
-// }
 
 // on page load
 window.addEventListener('load', _main);

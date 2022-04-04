@@ -404,6 +404,10 @@ body.sio-video2 {
 }
 
 
+body {
+    transition-duration: 100ms;
+}
+
 body.sio-home {
     @include LeftSidebar;
     @include Header;

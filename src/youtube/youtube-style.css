@@ -168,6 +168,9 @@ body.sio-video2 {
     --sio-flat-dark: #e5e5e5;
     --sio-flat-light: #ffffff; } }
 
+body {
+  transition-duration: 100ms; }
+
 body.sio-home ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/trending"],
 body.sio-home ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/trending"],
 body.sio-home ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/explore"],
