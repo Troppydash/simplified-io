@@ -1,6 +1,7 @@
 /// Helpers ///
 const _sioversion = '0.0.1';
 
+
 function $(selector) {
     return document.querySelector(selector);
 }
@@ -34,8 +35,9 @@ function setIntervalAnimation(callback, condition) {
 
 
 class YoutubePage {
-    constructor() {
+    constructor(strict = false) {
         this.app = null;
+        this.isStrict = strict;
     }
 
     hideAll() {
@@ -58,10 +60,28 @@ class YoutubePage {
         for (let i = 0; i < links.length; i++) {
             links[i].href += "/videos";
         }
+
+        if (this.isStrict) {
+            this.beStrict();
+        }
     }
 
     destroy() {
     }
+
+    beStrict() {
+        this.isStrict = true;
+        // add a class to the body to make the page more strict
+        document.body.classList.add('sio-strict');
+    }
+
+    beLax() {
+        this.isStrict = false;
+        // remove the class to make the page more lax
+        document.body.classList.remove('sio-strict');
+    }
+
+
 }
 
 
@@ -312,6 +332,7 @@ function _main() {
     window._stlogger.log("Version: " + _sioversion);
 
     // pages state
+    let isStrict = false;
     let currentPage = null;
     let timeout = null;
     const updatePage = (page, last) => {
@@ -321,12 +342,14 @@ function _main() {
 
         if (page == null) {
             // navigate to home page
-            alert(last)
             window._stlogger.log("Navigating to last url: " + last);
             window.location.href = last;
             return;
         }
         currentPage = page;
+        if (isStrict) {
+            currentPage.strict();
+        }
 
         currentPage.inject();
     }
@@ -355,13 +378,23 @@ function _main() {
             lastUrl = window.location.href;
             bufferPage(handleNewPage(lastUrl), prev);
         }
+
+        if (window._strict !== isStrict) {
+            isStrict = window._strict;
+            if (currentPage) {
+                if (isStrict) {
+                    currentPage.beStrict();
+                } else {
+                    currentPage.beLax();
+                }
+            }
+        }
     }, 50);
 
     // remove the interval when the page is closed
     window.addEventListener('unload', () => {
         clearInterval(update);
     });
-
 }
 
 

@@ -171,6 +171,10 @@ body.sio-video2 {
 body {
   transition-duration: 100ms; }
 
+body.sio-strict.sio-home ytd-rich-grid-row {
+  opacity: 0 !important;
+  pointer-events: none !important; }
+
 body.sio-home ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/trending"],
 body.sio-home ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/trending"],
 body.sio-home ytd-guide-renderer > div.ytd-guide-renderer ytd-guide-entry-renderer > a[href="/feed/explore"],

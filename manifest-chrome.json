@@ -4,10 +4,15 @@
     "version": "0.0.1",
     "manifest_version": 2,
     "permissions": [
-        "storage"
+        "storage",
+        "tabs"
     ],
     "browser_action": {
         "default_popup": "src/ui.html"
+    },
+    "background": {
+        "scripts": ["src/background.js"],
+        "persistent": true
     },
     "icons": {
         "16": "assets/logos/16.png",
@@ -39,5 +44,6 @@
     ],
     "web_accessible_resources": [
         "src/youtube/youtube-script.js"
-    ]
+    ],
+    "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net 'unsafe-eval'; object-src 'self'"
 }

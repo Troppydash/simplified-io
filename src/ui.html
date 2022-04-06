@@ -19,44 +19,64 @@
             width: 300px;
         }
 
-        /*!* dark mode *!*/
-        /*@media (prefers-color-scheme: dark) {*/
-        /*    html {*/
-        /*        background-color: #252525;*/
-        /*        color: #fff;*/
-        /*    }*/
-        /*}*/
+        .flat {
+            background: var(--sio-flat-bg);
+            box-shadow: 4px 4px 8px var(--sio-flat-dark), -4px -4px 8px var(--sio-flat-light);
+        }
+
+        :root {
+            --sio-red: #ff0000;
+            --sio-dark1: #3e3e3e;
+            --sio-dark2: #4d4d4d;
+            --sio-dark3: #5c5c5c;
+            --sio-lightdark1: #cbcbcb;
+            --sio-lightdark2: #ffffff;
+
+            --sio-flat-bg: #232323;
+            --sio-flat-dark: #181818;
+            --sio-flat-light: #3f3f3f;
+        }
     </style>
 </head>
 <body class="st-dark">
 
-<h2 style="margin-top: 0" class="st-text st-text--big">Simplified.IO</h2>
+<h2 style="margin-top: 0" class="st-text st-text--big st-text--primary">Simplified.IO</h2>
 
-<!--<p class="st-text" id="txt-success">Focus Successes: 0</p>-->
+<hr/>
+<br/>
+<div id="app">
+    <!--<h4 class="st-text st-text&#45;&#45;120">Focus Timer</h4>-->
+
+    <div style="text-align: center">
+        <div v-if="isFocussing">
+            <span class="st-text st-text--big">{{timer}}</span>
+        </div>
+        <div v-else>
+            <p class="st-text">
+                Focus for
+                <input type="number" min="1" class="st-input st-input--small" size="3"
+                                                v-model="durationInput" style="display: inline-block; width: 10ex"/>
+                minutes
+            </p>
+        </div>
+        <br/>
+        <button class="st-button st-button--small" @click="handleClick">{{buttonText}}</button>
+    </div>
+
+    <br/>
+    <p class="st-text" style="text-align: center; font-family: monospace">{{successes}} focuses so far</p>
+</div>
+
 
 <!--<br/>-->
-<!--<div >-->
-<!--    <div id="section-input">-->
-<!--        <span class="st-text">Duration (Minutes)</span>-->
-<!--        <br/>-->
-<!--        <input value="5" type="number" min="1" class="st-input st-input&#45;&#45;small" id="input-focus"/>-->
-<!--    </div>-->
-<!--    <div id="section-timer">-->
-<!--        <span class="st-text" id="txt-timer">00:00</span>-->
-<!--    </div>-->
-
-<!--    <button class="st-button st-button&#45;&#45;small" id="btn-focus">Start Focusing</button>-->
-<!--</div>-->
-
-
-<!--<br/>-->
-<p class="st-text">Thank you for using Simplified.IO</p>
+<!--<p class="st-text">Thank you for using Simplified.IO</p>-->
 <br/>
 <code style="color: white">
     Written by Terry Qi<br/>
     Designed by Brian Zhang
 </code>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 <script src="ui.js"></script>
 </body>
 </html>
