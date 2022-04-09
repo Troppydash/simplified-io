@@ -1,11 +1,18 @@
 {
     "name": "Simplified.io",
     "description": "the quick brown fox jumps over the lazy dog",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "manifest_version": 2,
-    "permissions": [],
+    "permissions": [
+        "storage",
+        "tabs"
+    ],
     "browser_action": {
         "default_popup": "src/ui.html"
+    },
+    "background": {
+        "scripts": ["src/background.js"],
+        "persistent": true
     },
     "icons": {
         "16": "assets/logos/16.png",
@@ -38,6 +45,7 @@
     "web_accessible_resources": [
         "src/youtube/youtube-script.js"
     ],
+    "content_security_policy": "script-src 'self' https://cdn.jsdelivr.net 'unsafe-eval'; object-src 'self'",
     "browser_specific_settings": {
         "gecko": {
             "id": "troppydash.developer@gmail.com",

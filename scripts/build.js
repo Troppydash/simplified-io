@@ -3,7 +3,7 @@ import fse from 'fs-extra';
 
 const BUILD_SETTINGS = {
     indir: ['src', 'assets'],
-    outdir: 'build',
+    outdir: 'build/simplfied.io',
     clean: false,
     extensions: ['.js', '.css', '.png', '.html']
 }

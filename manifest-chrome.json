@@ -1,7 +1,7 @@
 {
     "name": "Simplified.io",
     "description": "the quick brown fox jumps over the lazy dog",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "manifest_version": 2,
     "permissions": [
         "storage",
